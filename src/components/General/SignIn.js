@@ -90,20 +90,13 @@ const SignIn = () => {
                     required
                   />
                 </div>
-                <div className="row">
-                  <div className="col">
-                    <button type="submit" className="btn btn-primary">
-                      Login
-                    </button>
-                  </div>
-                  <div className="col">
-                    <a href="/register">
-                      <button type="button" className="btn btn-success">
-                        Register
-                      </button>
-                    </a>
-                  </div>
-                </div>
+                <button type="submit" className="btn btn-primary">
+                  Login
+                </button>
+                <br />
+                <br />
+                <br />
+                <a href="/register">Sign Up !</a>
               </form>
             </div>
           </div>

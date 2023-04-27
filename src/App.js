@@ -20,17 +20,18 @@ function App() {
 
   if (id) {
     currentUser(id)
-      .then((res) =>
+      .then((res) => {
+        console.log(res);
         dispatch({
           type: "LOGIN",
           user: {
-            token: res.data.token,
+            token: id,
             id: res.data.user.iduser,
             username: res.data.user.username,
             role: res.data.user.role,
           },
-        })
-      )
+        });
+      })
       .catch((err) => console.log(err));
   }
 

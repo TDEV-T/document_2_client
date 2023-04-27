@@ -90,8 +90,8 @@ const SignUp = () => {
                 </button>{" "}
                 <br />
                 <br />
-                <a className="nav-link" href="/">
-                  Already to member !
+                <a className="link" href="/">
+                  Sign In !
                 </a>
               </form>
             </div>
