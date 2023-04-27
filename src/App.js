@@ -50,6 +50,16 @@ function App() {
             </UserRoute>
           }
         ></Route>
+
+        {/* Admin Route */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Homepage />
+            </AdminRoute>
+          }
+        ></Route>
       </Routes>
     </div>
   );
