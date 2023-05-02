@@ -8,7 +8,8 @@ import {
   Sheet,
   ModalDialog,
 } from "@mui/joy";
-
+//toast
+import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import { createUpload } from "../../functions/file";
 
@@ -55,8 +56,11 @@ const ModalCreateFile = () => {
     formData.append("header", file.header);
 
     createUpload(id, formData)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        toast.success("Create Success !");
+        document.getElementById("formCreate").reset();
+      })
+      .catch((err) => toast.error("Create Failed !"));
   };
   return (
     <div>
@@ -105,7 +109,7 @@ const ModalCreateFile = () => {
           >
             เพิ่มงานชิ้นใหม่
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <form id="formCreate" onSubmit={handleSubmit}>
             <Typography id="modal-desc" textColor="text.tertiary">
               หัวข้อ
               <input
