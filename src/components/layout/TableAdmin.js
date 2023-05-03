@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 //Mui
 import {
   Table,
@@ -22,6 +22,9 @@ import {
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import PropTypes from "prop-types";
+
+//function
+import { getFileAll } from "../../functions/file";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -92,53 +95,33 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(name, calories, fat) {
-  return { name, calories, fat };
+function createData(title, content, category) {
+  return { title, content, category };
 }
 
 const columns = [
-  { id: "name", label: "Name", minWidth: 170 },
-  { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
-  {
-    id: "population",
-    label: "Population",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "size",
-    label: "Size\u00a0(km\u00b2)",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "density",
-    label: "Density",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toFixed(2),
-  },
+  { id: "title", label: "หัวข้อ", minWidth: 100 },
+  { id: "content", label: "เนื้อหา", minWidth: 200 },
+  { id: "category", label: "ประเภท", minWidth: 100 },
 ];
 
-const rows = [
-  createData("Cupcake", 305, 3.7),
-  createData("Donut", 452, 25.0),
-  createData("Eclair", 262, 16.0),
-  createData("Frozen yoghurt", 159, 6.0),
-  createData("Gingerbread", 356, 16.0),
-  createData("Honeycomb", 408, 3.2),
-  createData("Ice cream sandwich", 237, 9.0),
-  createData("Jelly Bean", 375, 0.0),
-  createData("KitKat", 518, 26.0),
-  createData("Lollipop", 392, 0.2),
-  createData("Marshmallow", 318, 0),
-  createData("Nougat", 360, 19.0),
-  createData("Oreo", 437, 18.0),
-].sort((a, b) => (a.calories < b.calories ? -1 : 1));
-
 const TableAdmin = () => {
+  const [dataFileAll, setdataFileAll] = useState([]);
+
+  const tokenid = localStorage.getItem("access_token");
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = () => {
+    getFileAll(tokenid)
+      .then((fileall) => {
+        console.log(fileall.data);
+        setdataFileAll(fileall.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -154,6 +137,12 @@ const TableAdmin = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const rows = useMemo(() => {
+    return dataFileAll.map((item) => {
+      return createData(item.title, item.content, item.category);
+    });
+  }, [dataFileAll]);
 
   return (
     <TableContainer component={Paper}>
@@ -178,13 +167,13 @@ const TableAdmin = () => {
           ).map((row) => (
             <TableRow key={row.name}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.title}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.calories}
+                {row.content}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.fat}
+                {row.category}
               </TableCell>
             </TableRow>
           ))}

@@ -7,3 +7,14 @@ export const createUpload = async (authtoken, formData) =>
       authtoken,
     },
   });
+
+export const getFileAll = async (authtoken) =>
+  await axios.post(
+    process.env.REACT_APP_SERVER_API + "/getFileAll",
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
