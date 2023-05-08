@@ -25,6 +25,7 @@ import PropTypes from "prop-types";
 
 //function
 import { getFileAll } from "../../functions/file";
+import ModalDetail from "./ModalDetail";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -95,14 +96,15 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(title, content, category) {
-  return { title, content, category };
+function createData(title, content, category, files) {
+  return { title, content, category, files };
 }
 
 const columns = [
-  { id: "title", label: "หัวข้อ", minWidth: 100 },
-  { id: "content", label: "เนื้อหา", minWidth: 200 },
+  { id: "title", label: "หัวข้อ", minWidth: 100, maxWidth: 125 },
+  { id: "content", label: "เนื้อหา", minWidth: 150 },
   { id: "category", label: "ประเภท", minWidth: 100 },
+  { id: "details", label: "รายละเอียด", minWidth: 100 },
 ];
 
 const TableAdmin = () => {
@@ -116,7 +118,6 @@ const TableAdmin = () => {
   const loadData = () => {
     getFileAll(tokenid)
       .then((fileall) => {
-        console.log(fileall.data);
         setdataFileAll(fileall.data);
       })
       .catch((err) => console.log(err));
@@ -140,7 +141,7 @@ const TableAdmin = () => {
 
   const rows = useMemo(() => {
     return dataFileAll.map((item) => {
-      return createData(item.title, item.content, item.category);
+      return createData(item.title, item.content, item.category, item.files);
     });
   }, [dataFileAll]);
 
@@ -166,21 +167,24 @@ const TableAdmin = () => {
             : rows
           ).map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
+              <TableCell style={{ width: 100 }} component="th" scope="row">
                 {row.title}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.content}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.category}
+              <TableCell style={{ width: 200 }}>{row.content}</TableCell>
+              <TableCell style={{ width: 100 }}>{row.category}</TableCell>
+              <TableCell style={{ width: 100 }}>
+                <ModalDetail
+                  files={row.files}
+                  title={row.title}
+                  content={row.content}
+                />
               </TableCell>
             </TableRow>
           ))}
 
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
+              <TableCell colSpan={4} />
             </TableRow>
           )}
         </TableBody>
