@@ -18,3 +18,10 @@ export const getFileAll = async (authtoken) =>
       },
     }
   );
+
+export const getDownload = async (authtoken, id_object) =>
+  await axios.post(
+    process.env.REACT_APP_SERVER_API + "/download",
+    { data: id_object },
+    { headers: authtoken }
+  );

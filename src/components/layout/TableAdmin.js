@@ -96,8 +96,8 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(title, content, category, files) {
-  return { title, content, category, files };
+function createData(id, title, content, category, files) {
+  return { id, title, content, category, files };
 }
 
 const columns = [
@@ -141,9 +141,17 @@ const TableAdmin = () => {
 
   const rows = useMemo(() => {
     return dataFileAll.map((item) => {
-      return createData(item.title, item.content, item.category, item.files);
+      return createData(
+        item._id,
+        item.title,
+        item.content,
+        item.category,
+        item.files
+      );
     });
   }, [dataFileAll]);
+
+  
 
   return (
     <TableContainer component={Paper}>
@@ -174,6 +182,7 @@ const TableAdmin = () => {
               <TableCell style={{ width: 100 }}>{row.category}</TableCell>
               <TableCell style={{ width: 100 }}>
                 <ModalDetail
+                  id={row.id}
                   files={row.files}
                   title={row.title}
                   content={row.content}
