@@ -26,6 +26,7 @@ import PropTypes from "prop-types";
 //function
 import { getFileAll } from "../../functions/file";
 import ModalDetail from "./ModalDetail";
+import ModalEditFile from "./ModalEditFile";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -101,10 +102,11 @@ function createData(id, title, content, category, files) {
 }
 
 const columns = [
-  { id: "title", label: "หัวข้อ", minWidth: 100, maxWidth: 125 },
+  { id: "title", label: "หัวข้อ", minWidth: 100 },
   { id: "content", label: "เนื้อหา", minWidth: 150 },
   { id: "category", label: "ประเภท", minWidth: 100 },
   { id: "details", label: "รายละเอียด", minWidth: 100 },
+  { id: "manage", label: "จัดการ", minWidth: 100 },
 ];
 
 const TableAdmin = () => {
@@ -151,18 +153,16 @@ const TableAdmin = () => {
     });
   }, [dataFileAll]);
 
-  
-
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <Table sx={{ minWidth: 550 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
             {columns.map((column) => (
               <TableCell
                 key={column.id}
                 align={column.align}
-                style={{ minWidth: column.minWidth }}
+                style={{ minWidth: column.minWidth, maxWidth: column.maxWidth }}
               >
                 {column.label}
               </TableCell>
@@ -173,8 +173,8 @@ const TableAdmin = () => {
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
-          ).map((row) => (
-            <TableRow key={row.name}>
+          ).map((row, index) => (
+            <TableRow key={index}>
               <TableCell style={{ width: 100 }} component="th" scope="row">
                 {row.title}
               </TableCell>
@@ -182,6 +182,17 @@ const TableAdmin = () => {
               <TableCell style={{ width: 100 }}>{row.category}</TableCell>
               <TableCell style={{ width: 100 }}>
                 <ModalDetail
+                  key={row.id}
+                  id={row.id}
+                  files={row.files}
+                  title={row.title}
+                  content={row.content}
+                  style={{ widht: 100 }}
+                />
+              </TableCell>
+              <TableCell style={{ width: 100 }}>
+                <ModalEditFile
+                  key={row.id}
                   id={row.id}
                   files={row.files}
                   title={row.title}

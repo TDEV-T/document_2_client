@@ -27,7 +27,7 @@ const ModalDetail = ({ id, files, title, content }) => {
       });
   };
   return (
-    <React.Fragment key={id}>
+    <React.Fragment>
       <Button variant="outlined" color="neutral" onClick={() => setOpen(!open)}>
         ดูรายละเอียด
       </Button>

@@ -41,8 +41,6 @@ const ModalCreateFile = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-
     const formData = new FormData();
 
     uploads.forEach(([key, value]) => {
