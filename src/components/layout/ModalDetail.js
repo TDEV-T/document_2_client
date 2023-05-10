@@ -41,7 +41,7 @@ const ModalDetail = ({ id, files, title, content }) => {
         <p>หัวข้อ : {title}</p>
         <p>เนื้อหา : {content}</p>
         {Object.keys(files).map((key, index) => (
-          <>
+          <div key={index}>
             <h5 className="mt-2" key={index}>
               บทที่{index + 1}:
             </h5>
@@ -56,7 +56,7 @@ const ModalDetail = ({ id, files, title, content }) => {
                 </a>
               ))}
             </div>
-          </>
+          </div>
         ))}
       </Modal>
     </React.Fragment>
