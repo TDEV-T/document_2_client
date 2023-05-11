@@ -10,87 +10,65 @@ import UploadComponent from "./UploadComponent";
 
 const tokenid = localStorage.getItem("access_token");
 
-const uploadProps = [
-  {
-    name: "file",
-    action: process.env.REACT_APP_SERVER_API + "/editFileImg",
-    headers: {
-      authtoken: tokenid,
-    },
-    data: {
-      type: "file1",
-    },
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  },
-  {
-    name: "file2",
-    action: "/api/upload1",
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  },
-  {
-    name: "file3",
-    action: "/api/upload1",
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  },
-  {
-    name: "file4",
-    action: "/api/upload1",
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  },
-  {
-    name: "file5s",
-    action: "/api/upload1",
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  },
-];
-
 const ModalEditFile = ({ id, files, title, content }) => {
   const [open, setOpen] = React.useState(false);
+  const uploadProps = [
+    {
+      name: "file",
+      action: process.env.REACT_APP_SERVER_API + "/editFileImg",
+      headers: {
+        authtoken: tokenid,
+      },
+      data: {
+        type: "file1",
+        id: id,
+      },
+    },
+    {
+      name: "file",
+      action: process.env.REACT_APP_SERVER_API + "/editFileImg",
+      headers: {
+        authtoken: tokenid,
+      },
+      data: {
+        type: "file2",
+        id: id,
+      },
+    },
+    {
+      name: "file",
+      action: process.env.REACT_APP_SERVER_API + "/editFileImg",
+      headers: {
+        authtoken: tokenid,
+      },
+      data: {
+        type: "file3",
+        id: id,
+      },
+    },
+    {
+      name: "file",
+      action: process.env.REACT_APP_SERVER_API + "/editFileImg",
+      headers: {
+        authtoken: tokenid,
+      },
+      data: {
+        type: "file4",
+        id: id,
+      },
+    },
+    {
+      name: "file",
+      action: process.env.REACT_APP_SERVER_API + "/editFileImg",
+      headers: {
+        authtoken: tokenid,
+      },
+      data: {
+        type: "file5",
+        id: id,
+      },
+    },
+  ];
 
   const [fileDe, setFilesDe] = React.useState({
     title: title,
@@ -138,7 +116,7 @@ const ModalEditFile = ({ id, files, title, content }) => {
           {uploadProps.map((props, index) => (
             <div key={index}>
               <h6 className="mt-2">บทที่ {index + 1}</h6>
-              <UploadComponent props={props} />
+              <UploadComponent props={props} file={files[`file${index + 1}`]} />
             </div>
           ))}
         </form>
