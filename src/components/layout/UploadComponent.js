@@ -3,8 +3,12 @@ import { Button, Modal } from "antd";
 //antd upload
 import { UploadOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
+//function
+import { deleteFileSingle } from "../../functions/file";
 
 const UploadComponent = ({ props, file }) => {
+  const tokenid = localStorage.getItem("access_token");
+
   const [files, setFiles] = useState([]);
   useEffect(() => {
     setFileListonLoad();
@@ -37,9 +41,11 @@ const UploadComponent = ({ props, file }) => {
   };
 
   const handleRemove = (file) => {
-    setFiles((files) => files.filter((item) => item.name !== file.name));
+    deleteFileSingle(tokenid, file.name, props.data.id, props.data.type)
+      .then()
+      .catch();
+    // setFiles((files) => files.filter((item) => item.name !== file.name));
   };
-
 
   return (
     <Upload

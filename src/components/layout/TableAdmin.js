@@ -24,9 +24,12 @@ import { useTheme } from "@mui/material/styles";
 import PropTypes from "prop-types";
 
 //function
-import { getFileAll } from "../../functions/file";
+import { getFileAll, deleteFile } from "../../functions/file";
 import ModalDetail from "./ModalDetail";
 import ModalEditFile from "./ModalEditFile";
+
+//ant
+import { Button, message } from "antd";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -153,6 +156,20 @@ const TableAdmin = () => {
     });
   }, [dataFileAll]);
 
+  const handleDeleteFile = async (tokenid, id) => {
+    try {
+      const response = await deleteFile(tokenid, id);
+      if (response.status === 200) {
+        message.success("ลบสำเร็จ !");
+        loadData();
+      } else {
+        message.error("เกิดข้อผิดพลาด !");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 550 }} aria-label="custom pagination table">
@@ -198,6 +215,14 @@ const TableAdmin = () => {
                   title={row.title}
                   content={row.content}
                 />
+
+                <Button
+                  danger
+                  type="link"
+                  onClick={() => handleDeleteFile(tokenid, row.id)}
+                >
+                  ลบ
+                </Button>
               </TableCell>
             </TableRow>
           ))}

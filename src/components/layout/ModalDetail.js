@@ -48,7 +48,7 @@ const ModalDetail = ({ id, files, title, content }) => {
             <div className="list-group">
               {files[key].map((item, index) => (
                 <a
-                  href={"http://localhost:3456/api/download/" + item}
+                  href={process.env.REACT_APP_SERVER_API + "/download/" + item}
                   className="list-group-item list-group-item-action"
                   key={index}
                 >

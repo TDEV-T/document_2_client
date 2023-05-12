@@ -79,6 +79,8 @@ const ModalEditFile = ({ id, files, title, content }) => {
     setFilesDe({ ...fileDe, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = (e) => {};
+
   return (
     <React.Fragment>
       <Button variant="outlined" color="neutral" onClick={() => setOpen(!open)}>
@@ -100,6 +102,7 @@ const ModalEditFile = ({ id, files, title, content }) => {
               name="title"
               onChange={handleChangeFile}
               value={fileDe.title}
+              required
             />
           </h5>
           <h5>
@@ -109,6 +112,7 @@ const ModalEditFile = ({ id, files, title, content }) => {
               className="form-control"
               name="content"
               onChange={handleChangeFile}
+              required
               value={fileDe.content}
             />
           </h5>
