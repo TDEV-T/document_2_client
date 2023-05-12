@@ -21,15 +21,33 @@ const UploadComponent = ({ props, file }) => {
   };
 
   const handleChangeFile = async (info) => {
-    if (info.file.status === "done") {
-      setFileListonLoad();
-    }
+    let newFileList = [...files];
 
-    console.log(info);
+    info.fileList.forEach((newFile) => {
+      const isExistFile = newFileList.some(
+        (existingFile) => existingFile.uid === newFile.uid
+      );
+
+      if (!isExistFile) {
+        newFileList.push(newFile);
+      }
+    });
+
+    setFiles(newFileList);
   };
 
+  const handleRemove = (file) => {
+    setFiles((files) => files.filter((item) => item.name !== file.name));
+  };
+
+
   return (
-    <Upload {...props} fileList={files} onChange={handleChangeFile}>
+    <Upload
+      {...props}
+      fileList={files.filter((file) => file.status !== "removed")}
+      onChange={handleChangeFile}
+      onRemove={handleRemove}
+    >
       <Button icon={<UploadOutlined />}>อัปโหลดไฟล์ประเภท</Button>
     </Upload>
   );
