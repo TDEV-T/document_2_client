@@ -13,6 +13,7 @@ import AdminRoute from "./routes/AdminRoute";
 import UserRoute from "./routes/UserRoute";
 //redux
 import { useDispatch } from "react-redux";
+import HomepageUser from "./components/User/HomepageUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ function App() {
           path="/user"
           element={
             <UserRoute>
-              <Homepage />
+              <HomepageUser />
             </UserRoute>
           }
         ></Route>

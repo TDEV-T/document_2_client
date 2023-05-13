@@ -110,12 +110,11 @@ const columns = [
   { id: "category", label: "ประเภท", minWidth: 100 },
   { id: "date", label: "วันที่", minWidth: 100 },
   { id: "details", label: "รายละเอียด", minWidth: 100 },
-  { id: "manage", label: "จัดการ", minWidth: 100 },
 ];
 
-const TableAdmin = ({ dataFileAll, loadData }) => {
+const TableUser = ({ dataFileAll, loadData }) => {
   const [page, setPage] = React.useState(0);
-  const tokenid = localStorage.getItem("access_token");
+
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -209,23 +208,6 @@ const TableAdmin = ({ dataFileAll, loadData }) => {
                   style={{ widht: 100 }}
                 />
               </TableCell>
-              <TableCell style={{ width: 100 }}>
-                <ModalEditFile
-                  key={row.id}
-                  id={row.id}
-                  files={row.files}
-                  title={row.title}
-                  content={row.content}
-                />
-
-                <Button
-                  danger
-                  type="link"
-                  onClick={() => handleDeleteFile(tokenid, row.id)}
-                >
-                  ลบ
-                </Button>
-              </TableCell>
             </TableRow>
           ))}
 
@@ -260,4 +242,4 @@ const TableAdmin = ({ dataFileAll, loadData }) => {
   );
 };
 
-export default TableAdmin;
+export default TableUser;
